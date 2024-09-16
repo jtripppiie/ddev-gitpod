@@ -5,11 +5,15 @@ tasks:
   - init: |
       ddev start -y
       ddev composer install
-      ddev drush si -y --account-pass=admin --site-name='Drupal Training' 
+      ddev drush si -y --account-pass=admin --site-name='Drupal Training'
     command: |
       ddev start -y
       gp ports await 8080 && gp preview $(gp url 8080)
       ddev drush cr
+  - name: Start SSH agent and add key
+    command: |
+      eval $(ssh-agent -s)
+      ssh-add ~/.ssh/id_rsa
 
 # VScode xdebug extension
 vscode:
